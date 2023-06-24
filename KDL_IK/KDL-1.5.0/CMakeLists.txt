@@ -13,7 +13,8 @@ ELSE(MSVC)
     SET(LIB_TYPE SHARED)
 ENDIF(MSVC)
 
-CONFIGURE_FILE(config.h.in config.h @ONLY)
+find_package(Eigen3 REQUIRED)
+# CONFIGURE_FILE(config.h.in config.h @ONLY)
 
 #### Settings for rpath
 IF(${CMAKE_MINIMUM_REQUIRED_VERSION} VERSION_GREATER "2.8.12")
@@ -81,7 +82,7 @@ ENDIF()
 
 # Needed so that the generated config.h can be used
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
-TARGET_LINK_LIBRARIES(orocos-kdl ${Boost_LIBRARIES})
+TARGET_LINK_LIBRARIES(orocos-kdl ${Boost_LIBRARIES} Eigen3::Eigen)
 
 INSTALL(TARGETS orocos-kdl
   EXPORT OrocosKDLTargets
