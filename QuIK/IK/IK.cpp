@@ -230,7 +230,8 @@ void IK( 	const Robot<DOF>& R,
 					// Update gradient
 					y = grad_ip1 - grad_i;
 					rho = dQ_i.transpose() * y;
-					delta = y.transpose() * H_i * y;
+					delta = (y.transpose() * H_i * y)(0,0);
+					//delta = y * H_i * y.transpose();
 					if (rho > delta && rho > numeric_limits<double>::epsilon())
 						H_i = H_i + ( (1 + delta/rho) * dQ_i*dQ_i.transpose() - dQ_i*y.transpose()*H_i - H_i*y*dQ_i.transpose())/rho;
 					else if (delta > numeric_limits<double>::epsilon() && rho > numeric_limits<double>::epsilon())
